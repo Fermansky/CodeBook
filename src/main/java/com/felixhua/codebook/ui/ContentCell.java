@@ -1,15 +1,10 @@
 package com.felixhua.codebook.ui;
 
-import com.felixhua.codebook.constant.Constants;
-import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.entity.ContentData;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -32,8 +27,9 @@ public class ContentCell extends HBox {
         iconView.setPreserveRatio(true);
         iconView.setFitWidth(80);
 
-        applicationLabel = new Label(contentData.getApplication());
+        applicationLabel = new Label(contentData.getTitle());
         applicationLabel.setFont(Font.font(25));
+        applicationLabel.setPadding(new Insets(5, 0, 5, 0));
         accountLabel = new Label("账号: " + contentData.getAccount());
         passwordLabel = new Label("密码: " + contentData.getPassword());
 

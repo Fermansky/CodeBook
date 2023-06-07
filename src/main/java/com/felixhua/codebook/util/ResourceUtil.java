@@ -2,7 +2,6 @@ package com.felixhua.codebook.util;
 
 import java.net.URL;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ResourceUtil {

@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+import java.util.Optional;
+
 public class MainPane extends BorderPane {
     private static final MainPane MAIN_PANE = new MainPane();
     private ContentWrapper contentWrapper;
@@ -19,6 +21,8 @@ public class MainPane extends BorderPane {
     private TextField searchField;
     private Button searchButton;
     private Label tipLabel;
+    private Button addCellButton;
+    private Button settingButton;
     public static MainPane getInstance() {
         return MAIN_PANE;
     }
@@ -43,7 +47,25 @@ public class MainPane extends BorderPane {
         searchWrapper.setMinWidth(250);
         searchWrapper.setAlignment(Pos.CENTER);
 
+        addCellButton = new Button("+");
+        addCellButton.setOnMousePressed(mouseEvent -> {
+            showAddContentDialog();
+        });
+        BorderPane addCellWrapper = new BorderPane();
+        addCellWrapper.setCenter(addCellButton);
+        addCellWrapper.setPadding(new Insets(5, 5, 5, 5));
+
+        settingButton = new Button("设置");
+        settingButton.setOnMousePressed(mouseEvent -> {
+
+        });
+        BorderPane settingWrapper = new BorderPane();
+        settingWrapper.setCenter(settingButton);
+        settingWrapper.setPadding(new Insets(5, 5, 5, 5));
+
         topPane.setCenter(searchWrapper);
+        topPane.setRight(addCellWrapper);
+        topPane.setLeft(settingWrapper);
         topPane.setPrefHeight(50);
     }
 
@@ -53,12 +75,18 @@ public class MainPane extends BorderPane {
         initTopPane();
         tipLabel = new Label(ResourceUtil.getMessage("main.tip.ready"));
         bottomPane = new BorderPane();
-        bottomPane.setPadding(new Insets(0, 0, 0, 2));
+        bottomPane.setPadding(new Insets(2, 2, 2, 2));
         bottomPane.setLeft(tipLabel);
 
         setTop(topPane);
         setBottom(bottomPane);
         setCenter(contentWrapper);
+    }
+
+    private void showAddContentDialog() {
+        AddContentDialog addContentDialog = new AddContentDialog();
+        Optional<ContentData> contentData = addContentDialog.showAndWait();
+        contentData.ifPresent(data -> ContentPane.addCell(new ContentCell(data)));
     }
     private MainPane() {
         initLayout();

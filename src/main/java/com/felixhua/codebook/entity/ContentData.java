@@ -1,10 +1,9 @@
 package com.felixhua.codebook.entity;
 
 import com.felixhua.codebook.constant.Constants;
-import javafx.scene.image.Image;
 
 public class ContentData {
-    private String application;
+    private String title;
     private String account;
     private String password;
     private String icon;
@@ -17,16 +16,16 @@ public class ContentData {
         return account;
     }
 
-    public String getApplication() {
-        return application;
+    public String getTitle() {
+        return title;
     }
 
     public String getIcon() {
         return icon;
     }
 
-    public ContentData(String application, String account, String password) {
-        this.application = application;
+    public ContentData(String title, String account, String password) {
+        this.title = title;
         this.account = account;
         this.password = password;
         this.icon = Constants.DEFAULT_ICON;

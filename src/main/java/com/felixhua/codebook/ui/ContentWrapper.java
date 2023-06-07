@@ -4,7 +4,6 @@ import javafx.scene.control.ScrollPane;
 
 public class ContentWrapper extends ScrollPane {
     private static final ContentWrapper contentWrapper = new ContentWrapper();
-    private static ContentPane contentPane;
 
     public static ContentWrapper getInstance() {
         return contentWrapper;
