@@ -5,15 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4864586e-aa18-44e9-9a57-dcb189b76448" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/codebook.cb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/constant/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ResetPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/DesktopUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/codebook-icon-300px_zh_CN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/icon_200px.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codebook.cb" beforeDir="false" afterPath="$PROJECT_DIR$/codebook.cb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/CodeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/CodeUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/ResourceUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/ResourceUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/login-pane.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/login-pane.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +61,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "configurable.group.editor",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -92,7 +101,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686119424599</updated>
-      <workItem from="1686119425690" duration="11181000" />
+      <workItem from="1686119425690" duration="18595000" />
     </task>
     <servers />
   </component>

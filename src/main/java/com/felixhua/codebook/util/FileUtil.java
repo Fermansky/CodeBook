@@ -11,7 +11,7 @@ public class FileUtil {
         checkFileExistence();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
-            System.out.println(CodeUtil.getPassword(line));
+            LoginController.getInstance().setPassword(CodeUtil.getPassword(line));
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }

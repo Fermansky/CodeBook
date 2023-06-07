@@ -1,5 +1,6 @@
 package com.felixhua.codebook.controller;
 
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -16,6 +17,10 @@ public class MainController {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void setStageContent(Parent content) {
+        this.primaryStage.getScene().setRoot(content);
     }
 
     private MainController() {

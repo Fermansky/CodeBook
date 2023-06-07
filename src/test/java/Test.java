@@ -1,10 +1,16 @@
 import com.felixhua.codebook.util.CodeUtil;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 
 public class Test {
     public static void main(String[] args) {
-//        String hff020722 = CodeUtil.encrypt("Hff020722", 10);
-//        CodeUtil.decrypt(hff020722, 10);
-        System.out.println(CodeUtil.getTimestamp());
+        System.out.println(Locale.getDefault());
+        String filename = "codebook-icon-300px.png";
+        int last = filename.lastIndexOf(".");
+        System.out.println(last);
+        System.out.println(filename.substring(0, last) + "_" + Locale.getDefault() + filename.substring(last));
     }
 }

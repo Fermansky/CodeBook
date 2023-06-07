@@ -1,9 +1,12 @@
 package com.felixhua.codebook.ui;
 
+import com.felixhua.codebook.constant.Constants;
 import com.felixhua.codebook.controller.LoginController;
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.util.DesktopUtil;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,10 +17,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.util.Locale;
+import java.util.Objects;
+
 public class LoginPane extends BorderPane {
     private VBox centralVBox;
     private PasswordField passwordField;
     private Label tipLabel;
+    private Label resetLabel;
     private Button submitButton;
 
     private void initCentralVBox() {
@@ -26,13 +33,16 @@ public class LoginPane extends BorderPane {
         centralVBox.setSpacing(20);
         centralVBox.setMaxSize(300, 500);
         centralVBox.setMinSize(300, 500);
-        centralVBox.setTranslateY(-50);
         ImageView logoView = new ImageView();
-        Image logoImage = new Image(ResourceUtil.getImage("codebook-icon-300px.png"));
+        Image logoImage = new Image(Objects.requireNonNull(ResourceUtil.getLocalizedImage("codebook-icon-300px.png")));
         logoView.setImage(logoImage);
         logoView.setFitWidth(200);
         logoView.setPreserveRatio(true);
-        Label label = new Label("Welcome to Code Book, please Enter the Password:");
+        logoView.setOnMouseClicked(mouseEvent -> {
+            DesktopUtil.browse(Constants.PROJECT_URL);
+        });
+        logoView.setCursor(Cursor.HAND);
+        Label label = new Label(ResourceUtil.getMessage("login.welcome"));
         tipLabel = new Label();
         passwordField = new PasswordField();
         passwordField.setPrefSize(300, 25);
@@ -42,7 +52,7 @@ public class LoginPane extends BorderPane {
                 submit();
             }
         });
-        submitButton = new Button("Login");
+        submitButton = new Button(ResourceUtil.getMessage("login.button"));
         submitButton.setPrefSize(200, 50);
         submitButton.setFont(Font.font(20));
         submitButton.setOnMousePressed(mouseEvent -> {
@@ -53,16 +63,23 @@ public class LoginPane extends BorderPane {
     private void initLayout() {
         initCentralVBox();
         setCenter(centralVBox);
+        resetLabel = new Label(ResourceUtil.getMessage("login.reset"));
+        resetLabel.getStyleClass().add("hyperlink");
+        resetLabel.setAlignment(Pos.CENTER);
+        resetLabel.setOnMouseClicked(mouseEvent -> {
+            MainController.getInstance().setStageContent(ResetPane.getInstance());
+        });
+        setBottom(resetLabel);
         getStylesheets().add("css/login-pane.css");
     }
 
     private void submit() {
         boolean login = LoginController.getInstance().login(passwordField.getText());
         if (login) {
-            tipLabel.setText("Login success.");
-            MainController.getInstance().getPrimaryStage().getScene().setRoot(ContentPane.getInstance());
+            tipLabel.setText(ResourceUtil.getMessage("login.tip.success"));
+            MainController.getInstance().setStageContent(ContentPane.getInstance());
         } else {
-            tipLabel.setText("Login failed.");
+            tipLabel.setText(ResourceUtil.getMessage("login.tip.failure"));
         }
     }
 
