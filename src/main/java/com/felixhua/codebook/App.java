@@ -1,10 +1,13 @@
 package com.felixhua.codebook;
 
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.ui.ContentWrapper;
 import com.felixhua.codebook.ui.LoginPane;
 import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

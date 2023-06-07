@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4864586e-aa18-44e9-9a57-dcb189b76448" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/MainPane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/main-pane.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/entity/ContentData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/content-cell.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/codebook.cb" beforeDir="false" afterPath="$PROJECT_DIR$/codebook.cb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/constant/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/constant/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/MainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/MainPane.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -90,7 +93,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686119424599</updated>
-      <workItem from="1686119425690" duration="20786000" />
+      <workItem from="1686119425690" duration="24793000" />
     </task>
     <servers />
   </component>

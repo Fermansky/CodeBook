@@ -1,6 +1,7 @@
 package com.felixhua.codebook.ui;
 
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +13,7 @@ import javafx.scene.layout.*;
 
 public class MainPane extends BorderPane {
     private static final MainPane MAIN_PANE = new MainPane();
-    private ScrollPane contentWrapper;
+    private ContentWrapper contentWrapper;
     private BorderPane topPane;
     private BorderPane bottomPane;
     private TextField searchField;
@@ -23,8 +24,8 @@ public class MainPane extends BorderPane {
     }
 
     private void initContentWrapper() {
-        this.contentWrapper = new ScrollPane(ContentPane.getInstance());
-        contentWrapper.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        this.contentWrapper = ContentWrapper.getInstance();
+        ContentPane.addCell(new ContentCell(new ContentData("QQ", "123456", "12345678")));
     }
 
     private void initTopPane() {
@@ -35,9 +36,11 @@ public class MainPane extends BorderPane {
 
         HBox searchWrapper = new HBox(searchField, searchButton);
         searchWrapper.getStyleClass().add("search-wrapper");
-        searchWrapper.maxWidthProperty().bind(MainController.getInstance().getPrimaryStage().widthProperty().divide(2));
-        searchField.prefWidthProperty().bind(searchWrapper.widthProperty().subtract(50));
+        searchWrapper.maxWidthProperty().bind(MainController.getInstance().getPrimaryStage().widthProperty().subtract(150));
+        searchField.prefWidthProperty().bind(searchWrapper.widthProperty().subtract(100));
+        searchField.setMinWidth(180);
         searchWrapper.setSpacing(10);
+        searchWrapper.setMinWidth(250);
         searchWrapper.setAlignment(Pos.CENTER);
 
         topPane.setCenter(searchWrapper);
