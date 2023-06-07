@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class LoginPane extends BorderPane {
@@ -77,7 +76,7 @@ public class LoginPane extends BorderPane {
         boolean login = LoginController.getInstance().login(passwordField.getText());
         if (login) {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.success"));
-            MainController.getInstance().setStageContent(ContentPane.getInstance());
+            MainController.getInstance().setStageContent(MainPane.getInstance());
         } else {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.failure"));
         }
