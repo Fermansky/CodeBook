@@ -5,8 +5,6 @@ import com.felixhua.codebook.util.ResourceUtil;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-import java.util.ResourceBundle;
-
 public class AddContentDialog extends Dialog<ContentData> {
 
     private void initLayout() {
