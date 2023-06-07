@@ -1,10 +1,15 @@
 package com.felixhua.codebook;
 
+import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.ui.LoginPane;
+import com.felixhua.codebook.util.FileUtil;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
 
 public class App extends Application {
     private Stage mainStage;
@@ -14,8 +19,15 @@ public class App extends Application {
         mainStage = stage;
         scene = new Scene(new LoginPane());
         initStage();
+        FileUtil.loadFile();
+        MainController.getInstance().setPrimaryStage(mainStage);
 
         mainStage.show();
+    }
+
+    @Override
+    public void stop() throws IOException {
+        FileUtil.writeFile();
     }
 
     private void initStage() {

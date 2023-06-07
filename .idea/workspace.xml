@@ -5,22 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4864586e-aa18-44e9-9a57-dcb189b76448" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/CodeUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/FileUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/ResourceUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/login-pane.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/codebook-icon-300px.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/codebook.cb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/ContentPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/ui/LoginPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/CodeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/CodeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/felixhua/codebook/util/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +92,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686119424599</updated>
-      <workItem from="1686119425690" duration="5838000" />
+      <workItem from="1686119425690" duration="11181000" />
     </task>
     <servers />
   </component>

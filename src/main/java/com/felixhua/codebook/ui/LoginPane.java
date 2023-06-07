@@ -1,8 +1,8 @@
 package com.felixhua.codebook.ui;
 
 import com.felixhua.codebook.controller.LoginController;
+import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.util.ResourceUtil;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,10 +12,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class LoginPane extends BorderPane {
     private VBox centralVBox;
     private PasswordField passwordField;
+    private Label tipLabel;
+    private Button submitButton;
 
     private void initCentralVBox() {
         centralVBox = new VBox();
@@ -30,17 +33,22 @@ public class LoginPane extends BorderPane {
         logoView.setFitWidth(200);
         logoView.setPreserveRatio(true);
         Label label = new Label("Welcome to Code Book, please Enter the Password:");
+        tipLabel = new Label();
         passwordField = new PasswordField();
+        passwordField.setPrefSize(300, 25);
+        passwordField.setFont(new Font(20));
         passwordField.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode().equals(KeyCode.ENTER)) {
                 submit();
             }
         });
-        Button submitButton = new Button("Login");
+        submitButton = new Button("Login");
+        submitButton.setPrefSize(200, 50);
+        submitButton.setFont(Font.font(20));
         submitButton.setOnMousePressed(mouseEvent -> {
             submit();
         });
-        centralVBox.getChildren().addAll(logoView, label, passwordField, submitButton);
+        centralVBox.getChildren().addAll(logoView, label, passwordField, submitButton, tipLabel);
     }
     private void initLayout() {
         initCentralVBox();
@@ -50,7 +58,12 @@ public class LoginPane extends BorderPane {
 
     private void submit() {
         boolean login = LoginController.getInstance().login(passwordField.getText());
-        System.out.println(login);
+        if (login) {
+            tipLabel.setText("Login success.");
+            MainController.getInstance().getPrimaryStage().getScene().setRoot(ContentPane.getInstance());
+        } else {
+            tipLabel.setText("Login failed.");
+        }
     }
 
     public LoginPane() {
