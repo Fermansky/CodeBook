@@ -14,7 +14,8 @@ public class FileUtil {
             String line = reader.readLine();
             CodeUtil.readKeyLine(line);
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                String dataLine = CodeUtil.decryptAES(line);
+                DataUtil.parseDataLine(dataLine, MainController.getContentDataList());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,7 +30,8 @@ public class FileUtil {
             String encryptedPassword = CodeUtil.encryptAES(password, CodeUtil.getKey(), CodeUtil.getIV());
             writer.write(CodeUtil.encode(CodeUtil.getKey()) + encryptedPassword + CodeUtil.encode(CodeUtil.getIV()));
             writer.newLine();
-            writer.write(CodeUtil.encryptAES(MainController.getContentDataList().toString()));
+            String contentData = MainController.getContentDataList().toString().replaceAll(" ", "");
+            writer.write(CodeUtil.encryptAES(contentData));
         } catch (Exception e) {
             e.printStackTrace();
         }

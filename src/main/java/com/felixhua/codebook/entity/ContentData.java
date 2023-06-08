@@ -33,8 +33,8 @@ public class ContentData {
 
     @Override
     public String toString() {
-        return "{title=\"" + title + '\"' +
-                ", account=\"" + account + '\"' +
-                ", password=\"" + password + "\"}";
+        return "{\"" + title + '\"' +
+                ", \"" + account + '\"' +
+                ", \"" + password + "\"}";
     }
 }

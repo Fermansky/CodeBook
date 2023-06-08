@@ -65,6 +65,15 @@ public class CodeUtil {
         }
     }
 
+    public static String decryptAES(String data) {
+        try {
+            return decryptAES(data, key, iv);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static String encode(byte[] byteArray) {
         return new String(Base64.getEncoder().encode(byteArray));
     }

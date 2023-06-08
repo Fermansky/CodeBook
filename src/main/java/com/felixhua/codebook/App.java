@@ -4,7 +4,6 @@ import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.ui.LoginPane;
 import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
-import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

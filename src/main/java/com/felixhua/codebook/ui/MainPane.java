@@ -29,7 +29,6 @@ public class MainPane extends BorderPane {
 
     private void initContentWrapper() {
         this.contentWrapper = ContentWrapper.getInstance();
-        MainController.addContentData(new ContentData("QQ", "123456", "12345678"));
     }
 
     private void initTopPane() {
@@ -90,5 +89,8 @@ public class MainPane extends BorderPane {
     }
     private MainPane() {
         initLayout();
+        for (ContentData contentData : MainController.getContentDataList()) {
+            ContentPane.addCell(new ContentCell(contentData));
+        }
     }
 }
