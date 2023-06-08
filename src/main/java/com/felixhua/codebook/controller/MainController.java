@@ -38,6 +38,11 @@ public class MainController {
         ContentPane.addCell(new ContentCell(contentData));
     }
 
+    public static void removeContentData(ContentData contentData) {
+        contentDataList.remove(contentData);
+        ContentPane.removeCell(contentData);
+    }
+
     private MainController() {
         contentDataList = new ArrayList<>();
     }
