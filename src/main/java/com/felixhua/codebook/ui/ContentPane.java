@@ -1,5 +1,6 @@
 package com.felixhua.codebook.ui;
 
+import com.felixhua.codebook.controller.MainController;
 import javafx.scene.layout.VBox;
 
 public class ContentPane extends VBox {

@@ -30,4 +30,11 @@ public class ContentData {
         this.password = password;
         this.icon = Constants.DEFAULT_ICON;
     }
+
+    @Override
+    public String toString() {
+        return "{title=\"" + title + '\"' +
+                ", account=\"" + account + '\"' +
+                ", password=\"" + password + "\"}";
+    }
 }

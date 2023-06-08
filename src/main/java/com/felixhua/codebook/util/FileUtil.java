@@ -1,6 +1,7 @@
 package com.felixhua.codebook.util;
 
 import com.felixhua.codebook.controller.LoginController;
+import com.felixhua.codebook.controller.MainController;
 
 import java.io.*;
 
@@ -11,10 +12,12 @@ public class FileUtil {
         checkFileExistence();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
-            LoginController.getInstance().setPassword(CodeUtil.getPassword(line));
+            CodeUtil.readKeyLine(line);
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -22,10 +25,13 @@ public class FileUtil {
         checkFileExistence();
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             String password = LoginController.getInstance().getPassword();
-            int timeStamp = CodeUtil.getTimestamp();
-            char sign = (char) ('H' + timeStamp);
-            String encodedPassword = CodeUtil.encrypt(password, timeStamp+1);
-            writer.write(sign + encodedPassword);
+            CodeUtil.generateNewKeyAndIV();
+            String encryptedPassword = CodeUtil.encryptAES(password, CodeUtil.getKey(), CodeUtil.getIV());
+            writer.write(CodeUtil.encode(CodeUtil.getKey()) + encryptedPassword + CodeUtil.encode(CodeUtil.getIV()));
+            writer.newLine();
+            writer.write(CodeUtil.encryptAES(MainController.getContentDataList().toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

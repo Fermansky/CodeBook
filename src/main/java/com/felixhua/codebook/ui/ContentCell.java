@@ -41,8 +41,12 @@ public class ContentCell extends HBox {
         setSpacing(20);
         setPadding(new Insets(5, 5, 5, 5));
     }
+
     public ContentCell(ContentData contentData) {
         this.contentData = contentData;
         initLayout();
+        setOnMouseClicked(mouseEvent -> {
+            System.out.println(contentData.toString());
+        });
     }
 }

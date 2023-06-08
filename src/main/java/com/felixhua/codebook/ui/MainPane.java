@@ -29,7 +29,7 @@ public class MainPane extends BorderPane {
 
     private void initContentWrapper() {
         this.contentWrapper = ContentWrapper.getInstance();
-        ContentPane.addCell(new ContentCell(new ContentData("QQ", "123456", "12345678")));
+        MainController.addContentData(new ContentData("QQ", "123456", "12345678"));
     }
 
     private void initTopPane() {
@@ -86,7 +86,7 @@ public class MainPane extends BorderPane {
     private void showAddContentDialog() {
         AddContentDialog addContentDialog = new AddContentDialog();
         Optional<ContentData> contentData = addContentDialog.showAndWait();
-        contentData.ifPresent(data -> ContentPane.addCell(new ContentCell(data)));
+        contentData.ifPresent(MainController::addContentData);
     }
     private MainPane() {
         initLayout();
