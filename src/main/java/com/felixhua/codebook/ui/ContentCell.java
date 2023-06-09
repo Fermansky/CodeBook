@@ -31,6 +31,9 @@ public class ContentCell extends HBox {
         return this.contentData;
     }
 
+    /**
+     * 初始化布局，仅在本对象创建时调用！
+     */
     private void initLayout() {
         getStylesheets().add("css/content-cell.css");
         getStyleClass().add("root");

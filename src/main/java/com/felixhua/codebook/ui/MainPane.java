@@ -1,6 +1,7 @@
 package com.felixhua.codebook.ui;
 
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.controller.SearchController;
 import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Insets;
@@ -8,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -36,6 +38,14 @@ public class MainPane extends BorderPane {
         searchField = new TextField();
         searchField.setPromptText(ResourceUtil.getMessage("search.placeholder"));
         searchButton = new Button(ResourceUtil.getMessage("search.button"));
+        searchButton.setOnMousePressed(mouseEvent -> {
+            search();
+        });
+        searchField.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+                search();
+            }
+        });
 
         HBox searchWrapper = new HBox(searchField, searchButton);
         searchWrapper.getStyleClass().add("search-wrapper");
@@ -56,7 +66,7 @@ public class MainPane extends BorderPane {
 
         settingButton = new Button("设置");
         settingButton.setOnMousePressed(mouseEvent -> {
-
+            ContentPane.reload(MainController.getContentDataList());
         });
         BorderPane settingWrapper = new BorderPane();
         settingWrapper.setCenter(settingButton);
@@ -86,6 +96,10 @@ public class MainPane extends BorderPane {
         AddContentDialog addContentDialog = new AddContentDialog();
         Optional<ContentData> contentData = addContentDialog.showAndWait();
         contentData.ifPresent(MainController::addContentData);
+    }
+
+    private void search() {
+        ContentPane.reload(SearchController.search(searchField.getText()));
     }
     private MainPane() {
         initLayout();
