@@ -76,7 +76,7 @@ public class LoginPane extends BorderPane {
         boolean login = LoginController.getInstance().login(passwordField.getText());
         if (login) {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.success"));
-            MainController.getInstance().setStageContent(MainPane.getInstance());
+            MainController.getInstance().setStageContent(MainWrapper.getInstance());
         } else {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.failure"));
         }

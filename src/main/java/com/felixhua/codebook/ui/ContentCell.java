@@ -42,8 +42,8 @@ public class ContentCell extends HBox {
         iconView.setFitWidth(60);
 
         titleLabel = new Label(contentData.getTitle());
-        titleLabel.setFont(Font.font(25));
-        titleLabel.setPadding(new Insets(0, 0, 3, 0));
+        titleLabel.setFont(Font.font(24));
+        titleLabel.setPadding(new Insets(0, 0, 2, 0));
         accountLabel = new Label("账号: " + contentData.getAccount());
         passwordLabel = new Label("密码: " + contentData.getPassword());
         BorderPane deleteButton = new BorderPane();
@@ -62,6 +62,7 @@ public class ContentCell extends HBox {
             confirmationDialog.setTitle(ResourceUtil.getMessage("delete.confirm.title"));
             confirmationDialog.setHeaderText(null);
             confirmationDialog.setContentText(ResourceUtil.getMessage("delete.confirm.text"));
+            confirmationDialog.initOwner(MainController.getPrimaryStage());
             ButtonType confirmButton = new ButtonType("确定", ButtonBar.ButtonData.OK_DONE);
             ButtonType cancelButton = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
             confirmationDialog.getButtonTypes().setAll(confirmButton, cancelButton);

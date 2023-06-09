@@ -1,5 +1,6 @@
 package com.felixhua.codebook.ui;
 
+import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ public class SetContentDialog extends Dialog<ContentData> {
 
     private void initLayout() {
         setTitle(ResourceUtil.getMessage("set.title"));
+        initOwner(MainController.getPrimaryStage());
         ButtonType submitButton = new ButtonType(ResourceUtil.getMessage("set.button.ok"), ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType(ResourceUtil.getMessage("set.button.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
         getDialogPane().getButtonTypes().addAll(cancelButton, submitButton);

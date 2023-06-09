@@ -3,11 +3,12 @@ package com.felixhua.codebook.ui;
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.controller.SearchController;
 import com.felixhua.codebook.entity.ContentData;
-import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -46,7 +47,7 @@ public class MainPane extends BorderPane {
 
         HBox searchWrapper = new HBox(searchField, searchButton);
         searchWrapper.getStyleClass().add("search-wrapper");
-        searchWrapper.maxWidthProperty().bind(MainController.getInstance().getPrimaryStage().widthProperty().subtract(150));
+        searchWrapper.maxWidthProperty().bind(MainController.getPrimaryStage().widthProperty().subtract(150));
         searchField.prefWidthProperty().bind(searchWrapper.widthProperty().subtract(100));
         searchField.setMinWidth(180);
         searchWrapper.setSpacing(10);
@@ -61,9 +62,9 @@ public class MainPane extends BorderPane {
         addCellWrapper.setCenter(addCellButton);
         addCellWrapper.setPadding(new Insets(5, 5, 5, 5));
 
-        settingButton = new Button("导出");
+        settingButton = new Button("设置");
         settingButton.setOnMousePressed(mouseEvent -> {
-            export();
+
         });
         BorderPane settingWrapper = new BorderPane();
         settingWrapper.setCenter(settingButton);
@@ -99,19 +100,6 @@ public class MainPane extends BorderPane {
         ContentPane.reload(SearchController.search(searchField.getText()));
     }
 
-    private void export() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("导出数据");
-        alert.setHeaderText(null);
-        alert.setContentText("确定要导出数据吗？如果确定，请妥善保存好导出的数据。");
-        ButtonType confirm = new ButtonType("确认", ButtonBar.ButtonData.YES);
-        ButtonType cancel = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(confirm, cancel);
-        Optional<ButtonType> buttonType = alert.showAndWait();
-        if(buttonType.isPresent() && buttonType.get() == confirm) {
-            FileUtil.exportCSV();
-        }
-    }
     private MainPane() {
         initLayout();
         for (ContentData contentData : MainController.getContentDataList()) {

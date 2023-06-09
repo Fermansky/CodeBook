@@ -44,8 +44,8 @@ public class FileUtil {
         }
     }
 
-    public static void exportCSV() {
-        try(FileWriter fileWriter = new FileWriter("test.csv");
+    public static void exportCSV(File file) {
+        try(FileWriter fileWriter = new FileWriter(file);
             CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
             for(ContentData contentData : MainController.getContentDataList()) {
                 csvPrinter.printRecord(contentData.toStringList());
