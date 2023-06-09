@@ -3,12 +3,11 @@ package com.felixhua.codebook.ui;
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.controller.SearchController;
 import com.felixhua.codebook.entity.ContentData;
+import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -38,9 +37,7 @@ public class MainPane extends BorderPane {
         searchField = new TextField();
         searchField.setPromptText(ResourceUtil.getMessage("search.placeholder"));
         searchButton = new Button(ResourceUtil.getMessage("search.button"));
-        searchButton.setOnMousePressed(mouseEvent -> {
-            search();
-        });
+        searchButton.setOnMousePressed(mouseEvent -> search());
         searchField.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode().equals(KeyCode.ENTER)) {
                 search();
@@ -64,9 +61,9 @@ public class MainPane extends BorderPane {
         addCellWrapper.setCenter(addCellButton);
         addCellWrapper.setPadding(new Insets(5, 5, 5, 5));
 
-        settingButton = new Button("设置");
+        settingButton = new Button("导出");
         settingButton.setOnMousePressed(mouseEvent -> {
-            ContentPane.reload(MainController.getContentDataList());
+            export();
         });
         BorderPane settingWrapper = new BorderPane();
         settingWrapper.setCenter(settingButton);
@@ -100,6 +97,20 @@ public class MainPane extends BorderPane {
 
     private void search() {
         ContentPane.reload(SearchController.search(searchField.getText()));
+    }
+
+    private void export() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("导出数据");
+        alert.setHeaderText(null);
+        alert.setContentText("确定要导出数据吗？如果确定，请妥善保存好导出的数据。");
+        ButtonType confirm = new ButtonType("确认", ButtonBar.ButtonData.YES);
+        ButtonType cancel = new ButtonType("取消", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(confirm, cancel);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.isPresent() && buttonType.get() == confirm) {
+            FileUtil.exportCSV();
+        }
     }
     private MainPane() {
         initLayout();

@@ -2,13 +2,20 @@ package com.felixhua.codebook.util;
 
 import com.felixhua.codebook.controller.LoginController;
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.entity.ContentData;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
     static File file = new File("codebook.cb");
 
-    public static void loadFile() throws IOException {
+    public static void loadCodeBook() throws IOException {
         checkFileExistence();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
@@ -22,7 +29,7 @@ public class FileUtil {
         }
     }
 
-    public static void writeFile() throws IOException {
+    public static void writeCodeBook() throws IOException {
         checkFileExistence();
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             String password = LoginController.getInstance().getPassword();
@@ -32,6 +39,31 @@ public class FileUtil {
             writer.newLine();
             String contentData = MainController.getContentDataList().toString().replaceAll(" ", "");
             writer.write(CodeUtil.encryptAES(contentData));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void exportCSV() {
+        try(FileWriter fileWriter = new FileWriter("test.csv");
+            CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
+            for(ContentData contentData : MainController.getContentDataList()) {
+                csvPrinter.printRecord(contentData.toStringList());
+            }
+            csvPrinter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void importCSV() {
+        try(FileReader fileReader = new FileReader("test.csv");
+            CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT)) {
+            List<CSVRecord> records = csvParser.getRecords();
+            List<ContentData> contentDataList = new ArrayList<>();
+            for (CSVRecord record : records) {
+                contentDataList.add(new ContentData(record.get(0), record.get(1), record.get(2)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

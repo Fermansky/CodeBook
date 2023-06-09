@@ -3,6 +3,9 @@ package com.felixhua.codebook.entity;
 import com.felixhua.codebook.constant.Constants;
 import com.felixhua.codebook.ui.ContentCell;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ContentData {
     private String title;
     private String account;
@@ -48,6 +51,10 @@ public class ContentData {
         this.account = account;
         this.password = password;
         this.icon = Constants.DEFAULT_ICON;
+    }
+
+    public List<String> toStringList() {
+        return Arrays.asList(title, account, password);
     }
 
     @Override

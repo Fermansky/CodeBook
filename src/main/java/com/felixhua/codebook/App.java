@@ -20,14 +20,14 @@ public class App extends Application {
         mainStage = stage;
         scene = new Scene(new LoginPane());
         initStage();
-        FileUtil.loadFile();
+        FileUtil.loadCodeBook();
         MainController.getInstance().setPrimaryStage(mainStage);
         mainStage.show();
     }
 
     @Override
     public void stop() throws IOException {
-        FileUtil.writeFile();
+        FileUtil.writeCodeBook();
     }
 
     private void initStage() {
