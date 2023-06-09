@@ -56,14 +56,15 @@ public class FileUtil {
         }
     }
 
-    public static void importCSV() {
-        try(FileReader fileReader = new FileReader("test.csv");
+    public static void importCSV(File file) {
+        try(FileReader fileReader = new FileReader(file);
             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT)) {
             List<CSVRecord> records = csvParser.getRecords();
             List<ContentData> contentDataList = new ArrayList<>();
             for (CSVRecord record : records) {
                 contentDataList.add(new ContentData(record.get(0), record.get(1), record.get(2)));
             }
+            System.out.println(contentDataList);
         } catch (Exception e) {
             e.printStackTrace();
         }

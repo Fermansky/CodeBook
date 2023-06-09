@@ -8,6 +8,10 @@ import java.util.List;
 public class DataUtil {
     static int index;
     static String dataLine;
+
+    public static boolean checkFieldValidity(String fieldText) {
+        return !fieldText.contains("\"");
+    }
     public static void parseDataLine(String line, List<ContentData> contentDataList) throws DataException {
         dataLine = line;
         index = 0;
@@ -46,7 +50,12 @@ public class DataUtil {
             }
             StringBuilder sb = new StringBuilder();
             index++;
-            while(dataLine.charAt(index) != '\"') {
+            while(dataLine.charAt(index) != '\"' || dataLine.charAt(index+1) == '\"') {
+                if (dataLine.charAt(index) == '\"' && dataLine.charAt(index + 1) == '\"') {
+                    sb.append("\"");
+                    index += 2;
+                    continue;
+                }
                 sb.append(dataLine.charAt(index));
                 index ++;
             }

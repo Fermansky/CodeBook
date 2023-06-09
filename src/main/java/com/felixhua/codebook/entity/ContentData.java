@@ -59,8 +59,8 @@ public class ContentData {
 
     @Override
     public String toString() {
-        return "{\"" + title + '\"' +
-                ", \"" + account + '\"' +
-                ", \"" + password + "\"}";
+        return "{\"" + title.replaceAll("\"", "\"\"") + '\"' +
+                ", \"" + account.replaceAll("\"", "\"\"") + '\"' +
+                ", \"" + password.replaceAll("\"", "\"\"") + "\"}";
     }
 }

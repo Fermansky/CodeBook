@@ -18,7 +18,9 @@ public class ContentWrapper extends ScrollPane {
     private ContentWrapper() {
         setContent(ContentPane.getInstance());
         initLayout();
-        addEventFilter(ScrollEvent.SCROLL, event -> {   // 调整滚动速度
+
+        // 调整滚动速度
+        addEventFilter(ScrollEvent.SCROLL, event -> {
             double deltaY = event.getDeltaY();
             double scrollSpeed = 0.01;
 

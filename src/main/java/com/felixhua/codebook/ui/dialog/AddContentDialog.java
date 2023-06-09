@@ -1,4 +1,4 @@
-package com.felixhua.codebook.ui;
+package com.felixhua.codebook.ui.dialog;
 
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.entity.ContentData;

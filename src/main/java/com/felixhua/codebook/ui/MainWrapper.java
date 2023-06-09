@@ -14,13 +14,24 @@ import java.util.Optional;
  * 用于包装主页面和上端目录条
  */
 public class MainWrapper extends BorderPane {
-    private static MainWrapper mainWrapper = new MainWrapper();
+    private static final MainWrapper mainWrapper = new MainWrapper();
+    private static MenuBar menuBar;
 
     public static MainWrapper getInstance() {
         return mainWrapper;
     }
 
-    private void export() {
+    private void importData() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv文件", "*.csv"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\Documents"));
+        File file = fileChooser.showOpenDialog(MainController.getPrimaryStage());
+        if (file != null) {
+            FileUtil.importCSV(file);
+        }
+    }
+
+    private void exportData() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("导出数据");
         alert.setHeaderText(null);
@@ -32,26 +43,40 @@ public class MainWrapper extends BorderPane {
         Optional<ButtonType> buttonType = alert.showAndWait();
         if(buttonType.isPresent() && buttonType.get() == confirm) {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv文件", ".csv"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("csv文件", "*.csv"));
             fileChooser.setInitialFileName("data");
             fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\Documents"));
             File file = fileChooser.showSaveDialog(MainController.getPrimaryStage());
             if (file != null) {
                 FileUtil.exportCSV(file);
+                Alert informDialog = new Alert(Alert.AlertType.INFORMATION);
+                informDialog.setTitle("导出成功");
+                informDialog.setHeaderText(null);
+                informDialog.setContentText("数据已成功导出！");
+                informDialog.initOwner(MainController.getPrimaryStage());
+                informDialog.showAndWait();
             }
         }
     }
 
-    private MainWrapper() {
-        setCenter(MainPane.getInstance());
-        MenuBar menuBar = new MenuBar();
+    private void initMenuBar() {
+        menuBar = new MenuBar();
         Menu file = new Menu(ResourceUtil.getMessage("menu.file"));
-        MenuItem export = new MenuItem(ResourceUtil.getMessage("menu.file.export"));
-        export.setOnAction(e -> {
-            export();
-        });
-        file.getItems().add(export);
+        MenuItem exportData = new MenuItem(ResourceUtil.getMessage("menu.file.export"));
+        exportData.setOnAction(e -> exportData());
+        MenuItem importData = new MenuItem(ResourceUtil.getMessage("menu.file.import"));
+        importData.setOnAction(e -> importData());
+        file.getItems().addAll(importData, exportData);
         menuBar.getMenus().add(file);
+    }
+
+    private void initLayout() {
+        initMenuBar();
+        setCenter(MainPane.getInstance());
         setTop(menuBar);
+    }
+
+    private MainWrapper() {
+        initLayout();
     }
 }

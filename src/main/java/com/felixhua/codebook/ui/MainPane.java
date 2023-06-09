@@ -3,6 +3,7 @@ package com.felixhua.codebook.ui;
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.controller.SearchController;
 import com.felixhua.codebook.entity.ContentData;
+import com.felixhua.codebook.ui.dialog.AddContentDialog;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
