@@ -4,6 +4,8 @@ import com.felixhua.codebook.entity.ContentData;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class ContentPane extends VBox {
     public static final ContentPane contentPane = new ContentPane();
 
@@ -23,6 +25,13 @@ public class ContentPane extends VBox {
                     return ;
                 }
             }
+        }
+    }
+
+    public static void reload(List<ContentData> contentDataList) {
+        contentPane.getChildren().removeAll();
+        for(ContentData contentData : contentDataList) {
+            contentPane.getChildren().add(contentData.getContentCell());
         }
     }
 

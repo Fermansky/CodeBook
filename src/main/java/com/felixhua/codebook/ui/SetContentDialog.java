@@ -5,18 +5,18 @@ import com.felixhua.codebook.util.ResourceUtil;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-public class AddContentDialog extends Dialog<ContentData> {
+public class SetContentDialog extends Dialog<ContentData> {
+    ContentData contentData;
 
     private void initLayout() {
-        setTitle(ResourceUtil.getMessage("add.title"));
-        setHeaderText(ResourceUtil.getMessage("add.header"));
-        ButtonType submitButton = new ButtonType(ResourceUtil.getMessage("add.button.ok"), ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelButton = new ButtonType(ResourceUtil.getMessage("add.button.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        setTitle(ResourceUtil.getMessage("set.title"));
+        ButtonType submitButton = new ButtonType(ResourceUtil.getMessage("set.button.ok"), ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType(ResourceUtil.getMessage("set.button.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
         getDialogPane().getButtonTypes().addAll(cancelButton, submitButton);
 
-        TextField titleField = new TextField();
-        TextField accountField = new TextField();
-        TextField passwordField = new TextField();
+        TextField titleField = new TextField(contentData.getTitle());
+        TextField accountField = new TextField(contentData.getAccount());
+        TextField passwordField = new TextField(contentData.getPassword());
 
         GridPane formPane = new GridPane();
         formPane.setHgap(10);
@@ -34,7 +34,9 @@ public class AddContentDialog extends Dialog<ContentData> {
             return null;
         });
     }
-    public AddContentDialog() {
+
+    public SetContentDialog(ContentData contentData) {
+        this.contentData = contentData;
         initLayout();
     }
 }

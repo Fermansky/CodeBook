@@ -19,7 +19,7 @@ public class ContentCell extends HBox {
     private ContentData contentData;
     private ImageView iconView;
     private VBox infoWrapper;
-    private Label applicationLabel;
+    private Label titleLabel;
     private Label accountLabel;
     private Label passwordLabel;
 
@@ -38,9 +38,9 @@ public class ContentCell extends HBox {
         iconView.setPreserveRatio(true);
         iconView.setFitWidth(60);
 
-        applicationLabel = new Label(contentData.getTitle());
-        applicationLabel.setFont(Font.font(25));
-        applicationLabel.setPadding(new Insets(0, 0, 5, 0));
+        titleLabel = new Label(contentData.getTitle());
+        titleLabel.setFont(Font.font(25));
+        titleLabel.setPadding(new Insets(0, 0, 3, 0));
         accountLabel = new Label("账号: " + contentData.getAccount());
         passwordLabel = new Label("密码: " + contentData.getPassword());
         BorderPane deleteButton = new BorderPane();
@@ -51,7 +51,7 @@ public class ContentCell extends HBox {
         deleteRegion.setMaxSize(25, 25);
         deleteButton.setCenter(deleteRegion);
 
-        infoWrapper = new VBox(applicationLabel, accountLabel, passwordLabel);
+        infoWrapper = new VBox(titleLabel, accountLabel, passwordLabel);
         getChildren().addAll(iconView, infoWrapper, deleteButton);
         deleteButton.setOnMouseClicked(mouseEvent -> {
             mouseEvent.consume();
@@ -82,11 +82,24 @@ public class ContentCell extends HBox {
         MainController.removeContentData(contentData);
     }
 
+    public void refresh() {
+        this.titleLabel.setText(contentData.getTitle());
+        this.accountLabel.setText("账号: " + contentData.getAccount());
+        this.passwordLabel.setText("密码: " + contentData.getPassword());
+    }
+
     public ContentCell(ContentData contentData) {
         this.contentData = contentData;
         initLayout();
         setOnMouseClicked(mouseEvent -> {
-            System.out.println(contentData.toString());
+            Optional<ContentData> contentData1 = new SetContentDialog(contentData).showAndWait();
+            contentData1.ifPresent(data -> {
+                this.contentData.setTitle(data.getTitle());
+                this.contentData.setAccount(data.getAccount());
+                this.contentData.setPassword(data.getPassword());
+                this.refresh();
+            });
         });
+        contentData.setContentCell(this);
     }
 }
