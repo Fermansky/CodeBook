@@ -1,5 +1,6 @@
 package com.felixhua.codebook.ui;
 
+import com.felixhua.codebook.constant.Constants;
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
@@ -59,6 +60,22 @@ public class MainWrapper extends BorderPane {
         }
     }
 
+    private void saveAs() {
+        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setSelectedExtensionFilter(Constants.CODE_BOOK_EXTENSION_FILTER);
+        fileChooser.getExtensionFilters().add(Constants.CODE_BOOK_EXTENSION_FILTER);
+        File file = fileChooser.showSaveDialog(MainController.getPrimaryStage());
+        if(file != null) {
+            FileUtil.writeCodeBook(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initOwner(MainController.getPrimaryStage());
+            alert.setTitle(ResourceUtil.getMessage("menu.file.save-as.success.title"));
+            alert.setHeaderText(null);
+            alert.setContentText(ResourceUtil.getMessage("menu.file.save-as.success.text"));
+            alert.showAndWait();
+        }
+    }
+
     private void initMenuBar() {
         menuBar = new MenuBar();
         Menu file = new Menu(ResourceUtil.getMessage("menu.file"));
@@ -66,7 +83,10 @@ public class MainWrapper extends BorderPane {
         exportData.setOnAction(e -> exportData());
         MenuItem importData = new MenuItem(ResourceUtil.getMessage("menu.file.import"));
         importData.setOnAction(e -> importData());
-        file.getItems().addAll(importData, exportData);
+        MenuItem open = new MenuItem(ResourceUtil.getMessage("menu.file.open"));
+        MenuItem saveAs = new MenuItem(ResourceUtil.getMessage("menu.file.save-as"));
+        saveAs.setOnAction(e -> saveAs());
+        file.getItems().addAll(open, saveAs, new SeparatorMenuItem(), importData, exportData);
         menuBar.getMenus().add(file);
     }
 

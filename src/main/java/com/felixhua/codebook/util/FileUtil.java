@@ -15,23 +15,31 @@ import java.util.List;
 public class FileUtil {
     static File file = new File("codebook.cb");
 
-    public static void loadCodeBook() throws IOException {
-        checkFileExistence();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+    public static String loadCodeBook(File codeBook){
+        if(!codeBook.exists()) {
+            System.err.println(codeBook + "不存在");
+            return "文件不存在";
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(codeBook))) {
             String line = reader.readLine();
             CodeUtil.readKeyLine(line);
             while ((line = reader.readLine()) != null) {
                 String dataLine = CodeUtil.decryptAES(line);
+                MainController.getContentDataList().clear();
                 DataUtil.parseDataLine(dataLine, MainController.getContentDataList());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public static void writeCodeBook() throws IOException {
-        checkFileExistence();
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+    public static String loadCodeBook() {
+        return loadCodeBook(file);
+    }
+
+    public static void writeCodeBook(File codebook){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(codebook))) {
             String password = LoginController.getInstance().getPassword();
             CodeUtil.generateNewKeyAndIV();
             String encryptedPassword = CodeUtil.encryptAES(password, CodeUtil.getKey(), CodeUtil.getIV());
@@ -42,6 +50,10 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeCodeBook() {
+        writeCodeBook(file);
     }
 
     public static void exportCSV(File file) {
@@ -70,11 +82,15 @@ public class FileUtil {
         }
     }
 
-    private static void checkFileExistence() throws IOException {
+    private static void checkFileExistence(){
         if(!file.exists()) {
             System.out.println("文件不存在，将为您创建新文件");
-            if (!file.createNewFile()) {
-                System.err.println("创建文件失败");
+            try {
+                if (!file.createNewFile()) {
+                    System.err.println("创建文件失败");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

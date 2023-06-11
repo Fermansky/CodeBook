@@ -62,13 +62,6 @@ public class LoginPane extends BorderPane {
     private void initLayout() {
         initCentralVBox();
         setCenter(centralVBox);
-        resetLabel = new Label(ResourceUtil.getMessage("login.reset"));
-        resetLabel.getStyleClass().add("hyperlink");
-        resetLabel.setAlignment(Pos.CENTER);
-        resetLabel.setOnMouseClicked(mouseEvent -> {
-            MainController.getInstance().setStageContent(ResetPane.getInstance());
-        });
-        setBottom(resetLabel);
         getStylesheets().add("css/login-pane.css");
     }
 
@@ -76,7 +69,7 @@ public class LoginPane extends BorderPane {
         boolean login = LoginController.getInstance().login(passwordField.getText());
         if (login) {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.success"));
-            MainController.getInstance().setStageContent(MainWrapper.getInstance());
+            MainController.setStageContent(MainWrapper.getInstance());
         } else {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.failure"));
         }

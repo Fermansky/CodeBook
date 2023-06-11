@@ -16,17 +16,18 @@ public class App extends Application {
     private Stage mainStage;
     private Scene scene;
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
         mainStage = stage;
         scene = new Scene(new LoginPane());
         initStage();
-        FileUtil.loadCodeBook();
+
         MainController.getInstance().setPrimaryStage(mainStage);
         mainStage.show();
+        MainController.loadContentBook();
     }
 
     @Override
-    public void stop() throws IOException {
+    public void stop() {
         FileUtil.writeCodeBook();
     }
 
