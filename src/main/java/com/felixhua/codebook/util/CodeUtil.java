@@ -102,12 +102,14 @@ public class CodeUtil {
         iv = generateRandomBytes();
     }
 
-    public static void readKeyLine(String keyLine) throws Exception {
+    public static String readKeyLine(String keyLine) throws Exception {
         String keyString = keyLine.substring(0, 24);
         String passwordString = keyLine.substring(24, keyLine.length()-24);
         String ivString = keyLine.substring(keyLine.length() - 24);
         key = decode(keyString);
         iv = decode(ivString);
-        LoginController.getInstance().setPassword(decryptAES(passwordString, key, iv));
+        String password = decryptAES(passwordString, key, iv);
+        LoginController.getInstance().setPassword(password);
+        return password;
     }
 }

@@ -3,6 +3,8 @@ package com.felixhua.codebook.controller;
 import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.ui.ContentCell;
 import com.felixhua.codebook.ui.ContentPane;
+import com.felixhua.codebook.ui.LoginPane;
+import com.felixhua.codebook.ui.MainPane;
 import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.application.Platform;
@@ -50,24 +52,8 @@ public class MainController {
     }
 
     public static void loadContentBook() {
-        if (FileUtil.loadCodeBook() != null) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle(ResourceUtil.getMessage("load.alert.title"));
-//            alert.setContentText(ResourceUtil.getMessage("load.alert.content"));
-//            alert.setHeaderText(null);
-//            alert.initOwner(primaryStage);
-//            ButtonType createButton = new ButtonType(ResourceUtil.getMessage("load.alert.create"));
-//            ButtonType loadButton = new ButtonType(ResourceUtil.getMessage("load.alert.load"));
-//            alert.getButtonTypes().setAll(createButton, loadButton, ButtonType.CLOSE);
-//            alert.showAndWait();
-
-//            alert.setResultConverter(buttonType -> {
-//                if (buttonType == null) {
-//                    Platform.exit();
-//                }
-//                return null;
-//            });
-        }
+        String s = FileUtil.loadCodeBook();
+        LoginPane.disable(s != null);
     }
 
     private MainController() {

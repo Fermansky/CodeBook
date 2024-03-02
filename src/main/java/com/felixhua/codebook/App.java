@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,8 +18,10 @@ public class App extends Application {
     private Scene scene;
     @Override
     public void start(Stage stage){
+        FileUtil.loadConfigFile();
+
         mainStage = stage;
-        scene = new Scene(new LoginPane());
+        scene = new Scene(LoginPane.getInstance());
         initStage();
 
         MainController.getInstance().setPrimaryStage(mainStage);
@@ -29,6 +32,7 @@ public class App extends Application {
     @Override
     public void stop() {
         FileUtil.writeCodeBook();
+        FileUtil.writeConfigFile();
     }
 
     private void initStage() {

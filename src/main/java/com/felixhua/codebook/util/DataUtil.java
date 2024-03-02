@@ -35,6 +35,30 @@ public class DataUtil {
         }
     }
 
+    public static void parseDataLine(String line) throws DataException {
+        dataLine = line;
+        index = 0;
+        if(dataLine.charAt(index) != '[') {
+            throw new DataException();
+        }
+        index ++;
+        while(dataLine.charAt(index) != ']') {
+            if(dataLine.charAt(index) == '{') {
+                ContentData contentData = parseContentData();
+                System.out.println(contentData);
+                index ++;
+                if(dataLine.charAt(index) == ',') {
+                    index++;
+                }
+            } else {
+                throw new DataException();
+            }
+        }
+        if (dataLine.length()-1 > index) {
+            throw new DataException();
+        }
+    }
+
     public static ContentData parseContentData() throws DataException {
         int contentIndex = 0;
         String title = null;

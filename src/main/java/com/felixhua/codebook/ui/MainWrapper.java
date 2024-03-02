@@ -62,7 +62,6 @@ public class MainWrapper extends BorderPane {
 
     private void saveAs() {
         FileChooser fileChooser = new FileChooser();
-//        fileChooser.setSelectedExtensionFilter(Constants.CODE_BOOK_EXTENSION_FILTER);
         fileChooser.getExtensionFilters().add(Constants.CODE_BOOK_EXTENSION_FILTER);
         File file = fileChooser.showSaveDialog(MainController.getPrimaryStage());
         if(file != null) {

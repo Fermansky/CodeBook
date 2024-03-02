@@ -2,7 +2,10 @@ package com.felixhua.codebook.util;
 
 import com.felixhua.codebook.controller.LoginController;
 import com.felixhua.codebook.controller.MainController;
+import com.felixhua.codebook.entity.CodeBook;
+import com.felixhua.codebook.entity.Configuration;
 import com.felixhua.codebook.entity.ContentData;
+import com.google.gson.Gson;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -13,10 +16,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileUtil {
-    static File file = new File("codebook.cb");
+    public static File file = new File("codebook.cb");
+    public static File configFile = new File("config.json");
+    public static Gson gson = new Gson();
+
+    public static String loadConfigFile() {
+        if (configFile == null || !configFile.exists()) {
+            System.err.println("配置文件不存在");
+            return "";
+        }
+        try (FileReader reader = new FileReader(configFile)) {
+            Configuration configuration = gson.fromJson(reader, Configuration.class);
+            Configuration.setInstance(configuration);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public static String writeConfigFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile))) {
+            writer.write(gson.toJson(Configuration.getInstance()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
     public static String loadCodeBook(File codeBook){
-        if(!codeBook.exists()) {
+        if(codeBook == null || !codeBook.exists()) {
             System.err.println(codeBook + "不存在");
             return "文件不存在";
         }
@@ -34,11 +64,39 @@ public class FileUtil {
         return null;
     }
 
+    public static String loadCodeBook(CodeBook codeBook) {
+        if (codeBook == null || codeBook.getPath() == null) {
+            System.err.println("密码簿无效");
+            return "密码簿无效";
+        }
+        File file = new File(codeBook.getPath());
+        if (file == null || !file.exists()) {
+            System.err.println("密码簿文件不存在");
+            return "密码簿文件不存在";
+        }
+        if (codeBook.getPassword() == null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line = reader.readLine();
+                codeBook.setPassword(CodeUtil.readKeyLine(line));
+                while ((line = reader.readLine()) != null) {
+                    String dataLine = CodeUtil.decryptAES(line);
+                    DataUtil.parseDataLine(dataLine);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public static String loadCodeBook() {
         return loadCodeBook(file);
     }
 
     public static void writeCodeBook(File codebook){
+        if (codebook == null) {
+            return;
+        }
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(codebook))) {
             String password = LoginController.getInstance().getPassword();
             CodeUtil.generateNewKeyAndIV();
@@ -76,7 +134,9 @@ public class FileUtil {
             for (CSVRecord record : records) {
                 contentDataList.add(new ContentData(record.get(0), record.get(1), record.get(2)));
             }
-            System.out.println(contentDataList);
+            for(ContentData contentData : contentDataList) {
+                MainController.addContentData(contentData);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,5 +153,10 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void importCodeBook(File codebook) {
+        file = codebook;
+        loadCodeBook();
     }
 }
