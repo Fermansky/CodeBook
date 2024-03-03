@@ -27,7 +27,9 @@ public class FileUtil {
         }
         try (FileReader reader = new FileReader(configFile)) {
             Configuration configuration = gson.fromJson(reader, Configuration.class);
-            Configuration.setInstance(configuration);
+            if (configuration != null) {
+                Configuration.setInstance(configuration);
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -45,32 +47,13 @@ public class FileUtil {
         return null;
     }
 
-    public static String loadCodeBook(File codeBook){
-        if(codeBook == null || !codeBook.exists()) {
-            System.err.println(codeBook + "不存在");
-            return "文件不存在";
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(codeBook))) {
-            String line = reader.readLine();
-            CodeUtil.readKeyLine(line);
-            while ((line = reader.readLine()) != null) {
-                String dataLine = CodeUtil.decryptAES(line);
-                MainController.getContentDataList().clear();
-                DataUtil.parseDataLine(dataLine, MainController.getContentDataList());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static String loadCodeBook(CodeBook codeBook) {
         if (codeBook == null || codeBook.getPath() == null) {
             System.err.println("密码簿无效");
             return "密码簿无效";
         }
         File file = new File(codeBook.getPath());
-        if (file == null || !file.exists()) {
+        if (!file.exists()) {
             System.err.println("密码簿文件不存在");
             return "密码簿文件不存在";
         }
@@ -80,17 +63,13 @@ public class FileUtil {
                 codeBook.setPassword(CodeUtil.readKeyLine(line));
                 while ((line = reader.readLine()) != null) {
                     String dataLine = CodeUtil.decryptAES(line);
-                    DataUtil.parseDataLine(dataLine);
+                    DataUtil.parseDataLine(dataLine, codeBook.getContentDataList());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return null;
-    }
-
-    public static String loadCodeBook() {
-        return loadCodeBook(file);
     }
 
     public static void writeCodeBook(File codebook){
@@ -104,6 +83,24 @@ public class FileUtil {
             writer.write(CodeUtil.encode(CodeUtil.getKey()) + encryptedPassword + CodeUtil.encode(CodeUtil.getIV()));
             writer.newLine();
             String contentData = MainController.getContentDataList().toString().replaceAll(" ", "");
+            writer.write(CodeUtil.encryptAES(contentData));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeCodeBook(CodeBook codeBook) {
+        if (codeBook == null) {
+            return;
+        }
+        File file = new File(codeBook.getPath());
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            String password = codeBook.getPassword();
+            CodeUtil.generateNewKeyAndIV();
+            String encryptedPassword = CodeUtil.encryptAES(password, CodeUtil.getKey(), CodeUtil.getIV());
+            writer.write(CodeUtil.encode(CodeUtil.getKey()) + encryptedPassword + CodeUtil.encode(CodeUtil.getIV()));
+            writer.newLine();
+            String contentData = codeBook.getContentDataList().toString().replaceAll(" ", "");
             writer.write(CodeUtil.encryptAES(contentData));
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,6 +154,6 @@ public class FileUtil {
 
     public static void importCodeBook(File codebook) {
         file = codebook;
-        loadCodeBook();
+//        loadCodeBook();
     }
 }

@@ -1,25 +1,20 @@
 package com.felixhua.codebook.controller;
 
+import com.felixhua.codebook.entity.CodeBook;
 import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.ui.ContentCell;
 import com.felixhua.codebook.ui.ContentPane;
-import com.felixhua.codebook.ui.LoginPane;
-import com.felixhua.codebook.ui.MainPane;
-import com.felixhua.codebook.util.FileUtil;
-import com.felixhua.codebook.util.ResourceUtil;
-import javafx.application.Platform;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
     private static final MainController mainController = new MainController();
     private static Stage primaryStage;
-    private static ArrayList<ContentData> contentDataList;
+    private static List<ContentData> contentDataList;
+    private static CodeBook currentCodeBook;
 
     public static MainController getInstance() {
         return mainController;
@@ -37,8 +32,17 @@ public class MainController {
         primaryStage.getScene().setRoot(content);
     }
 
-    public static ArrayList<ContentData> getContentDataList() {
+    public static List<ContentData> getContentDataList() {
         return contentDataList;
+    }
+
+    public static void setCurrentCodeBook(CodeBook currentCodeBook) {
+        MainController.currentCodeBook = currentCodeBook;
+        loadContentBook();
+    }
+
+    public static CodeBook getCurrentCodeBook() {
+        return currentCodeBook;
     }
 
     public static void addContentData(ContentData contentData) {
@@ -52,8 +56,8 @@ public class MainController {
     }
 
     public static void loadContentBook() {
-        String s = FileUtil.loadCodeBook();
-        LoginPane.disable(s != null);
+        contentDataList = currentCodeBook.getContentDataList();
+        ContentPane.reload(contentDataList);
     }
 
     private MainController() {

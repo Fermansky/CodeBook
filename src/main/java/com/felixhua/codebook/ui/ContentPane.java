@@ -31,7 +31,11 @@ public class ContentPane extends VBox {
     public static void reload(List<ContentData> contentDataList) {
         contentPane.getChildren().clear();
         for(ContentData contentData : contentDataList) {
-            contentPane.getChildren().add(contentData.getContentCell());
+            ContentCell contentCell = contentData.getContentCell();
+            if (contentCell == null) {
+                contentCell = new ContentCell(contentData);
+            }
+            contentPane.getChildren().add(contentCell);
         }
     }
 

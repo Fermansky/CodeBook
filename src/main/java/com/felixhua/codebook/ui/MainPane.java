@@ -103,8 +103,5 @@ public class MainPane extends BorderPane {
 
     private MainPane() {
         initLayout();
-        for (ContentData contentData : MainController.getContentDataList()) {
-            ContentPane.addCell(new ContentCell(contentData));
-        }
     }
 }

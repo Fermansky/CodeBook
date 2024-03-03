@@ -1,5 +1,7 @@
 package com.felixhua.codebook.controller;
 
+import com.felixhua.codebook.ui.LoginPane;
+
 public class LoginController {
     private static final LoginController loginController = new LoginController();
     private String password = "114514";
@@ -16,7 +18,7 @@ public class LoginController {
     }
 
     public boolean login(String password) {
-        return (this.password.equals(password));
+        return (password.equals(MainController.getCurrentCodeBook().getPassword()));
     }
     private LoginController() {
 

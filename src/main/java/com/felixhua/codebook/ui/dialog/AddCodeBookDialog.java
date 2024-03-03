@@ -2,7 +2,6 @@ package com.felixhua.codebook.ui.dialog;
 
 import com.felixhua.codebook.controller.MainController;
 import com.felixhua.codebook.entity.CodeBook;
-import com.felixhua.codebook.entity.ContentData;
 import com.felixhua.codebook.util.ResourceUtil;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -38,7 +37,9 @@ public class AddCodeBookDialog extends Dialog<CodeBook> {
                 fileChooser.setInitialFileName(titleField.getText());
                 fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\Documents"));
                 File file = fileChooser.showSaveDialog(this.getOwner());
-                return new CodeBook(file);
+                CodeBook codeBook = new CodeBook(file);
+                codeBook.setPassword(passwordField.getText());
+                return codeBook;
             }
             return null;
         });

@@ -9,8 +9,6 @@ import com.felixhua.codebook.ui.dialog.AddCodeBookDialog;
 import com.felixhua.codebook.util.DesktopUtil;
 import com.felixhua.codebook.util.FileUtil;
 import com.felixhua.codebook.util.ResourceUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -21,7 +19,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
@@ -37,6 +34,7 @@ public class LoginPane extends BorderPane {
     private Label resetLabel;
     private Label selectLabel;
     private Label codebookLabel;
+    private ChoiceBox<CodeBook> codeBookChoiceBox;
 
     private HBox selectBox;
     private static Button submitButton;
@@ -44,6 +42,10 @@ public class LoginPane extends BorderPane {
 
     public static LoginPane getInstance() {
         return loginPane;
+    }
+
+    public ChoiceBox<CodeBook> getCodeBookChoiceBox() {
+        return codeBookChoiceBox;
     }
 
     private void initCentralVBox() {
@@ -70,7 +72,13 @@ public class LoginPane extends BorderPane {
         addButton.setTooltip(new Tooltip("新建密码簿"));
         addButton.setOnAction(event -> {
             Optional<CodeBook> codeBook = new AddCodeBookDialog().showAndWait();
-            codeBook.ifPresent(Configuration::addCodeBook);
+            if (codeBook.isPresent()) {
+                Configuration.addCodeBook(codeBook.get());
+                FileUtil.writeCodeBook(codeBook.get());
+                codeBookChoiceBox.getItems().add(codeBook.get());
+                codeBookChoiceBox.setValue(codeBook.get());
+                MainController.setCurrentCodeBook(codeBook.get());
+            }
         });
         selectLabel = new Label(ResourceUtil.getMessage("login.select"));
         codebookLabel = new Label(FileUtil.file.getName());
@@ -85,20 +93,22 @@ public class LoginPane extends BorderPane {
             File file = fileChooser.showOpenDialog(MainController.getPrimaryStage());
             FileUtil.importCodeBook(file);
         });
-        ChoiceBox<CodeBook> cb = new ChoiceBox<>();
+        codeBookChoiceBox = new ChoiceBox<>();
         for (CodeBook codeBook : Configuration.getCodeBookList()) {
-            cb.getItems().add(codeBook);
-            if (cb.getValue() == null) {
-                cb.setValue(codeBook);
+            codeBookChoiceBox.getItems().add(codeBook);
+            if (codeBookChoiceBox.getValue() == null) {
+                codeBookChoiceBox.setValue(codeBook);
                 FileUtil.loadCodeBook(codeBook);
+                MainController.setCurrentCodeBook(codeBook);
             }
         }
 
-        cb.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        codeBookChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             FileUtil.loadCodeBook(newValue);
+            MainController.setCurrentCodeBook(newValue);
         });
 
-        selectBox.getChildren().addAll(selectLabel, cb, addButton);
+        selectBox.getChildren().addAll(selectLabel, codeBookChoiceBox, addButton);
 
         tipLabel = new Label();
         passwordField = new PasswordField();
@@ -126,6 +136,9 @@ public class LoginPane extends BorderPane {
     }
 
     private void submit() {
+        if (codeBookChoiceBox.getValue() == null) {
+            return;
+        }
         boolean login = LoginController.getInstance().login(passwordField.getText());
         if (login) {
             tipLabel.setText(ResourceUtil.getMessage("login.tip.success"));

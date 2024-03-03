@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class App extends Application {
@@ -26,12 +24,11 @@ public class App extends Application {
 
         MainController.getInstance().setPrimaryStage(mainStage);
         mainStage.show();
-        MainController.loadContentBook();
     }
 
     @Override
     public void stop() {
-        FileUtil.writeCodeBook();
+        FileUtil.writeCodeBook(LoginPane.getInstance().getCodeBookChoiceBox().getValue());
         FileUtil.writeConfigFile();
     }
 
